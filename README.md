@@ -18,15 +18,14 @@ Wi-Fi and Bluetooth are disabled. There is no network time service.
 
 ## Install firmware
 
-You need Python 3 and a USB data cable. These commands are for macOS and Linux.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and connect a USB data cable.
+These commands are for macOS and Linux.
 
-Download this repository and prepare the installer:
+Download this repository:
 
 ```sh
 git clone https://github.com/brianfakhoury/bedroom-friendly-clock.git
 cd bedroom-friendly-clock
-python3 -m venv .tools/venv
-.tools/venv/bin/python -m pip install -r tools/requirements.txt
 ```
 
 Put the board in download mode:
@@ -39,7 +38,7 @@ Put the board in download mode:
 Run the installer:
 
 ```sh
-.tools/venv/bin/python tools/flash.py
+uv run tools/flash.py
 ```
 
 The installer downloads the latest release and checks its SHA-256 checksum.
@@ -62,8 +61,8 @@ Start the clock in USB maintenance mode:
 Use the port shown by the installer:
 
 ```sh
-.tools/venv/bin/python tools/clock.py set-time --port /dev/cu.usbmodem1101
-.tools/venv/bin/python tools/clock.py sleep --port /dev/cu.usbmodem1101
+uv run tools/clock.py set-time --port /dev/cu.usbmodem1101
+uv run tools/clock.py sleep --port /dev/cu.usbmodem1101
 ```
 
 The first command copies your computer's UTC time to the external RTC.
@@ -76,7 +75,7 @@ Dashes indicate that the clock cannot read valid time.
 
 Tap the screen. While the digits or dashes are visible, hold BOOT and KEY together.
 Release both buttons. The clock stays awake for USB maintenance.
-Run `tools/flash.py` with the Python environment shown above.
+Run `uv run tools/flash.py`.
 You can also use this maintenance mode to set the time without disconnecting power.
 
 ## Design
@@ -104,7 +103,8 @@ Some other board supplies remain on; see the power audit.
 ## Build and test
 
 The setup script supports Apple Silicon macOS and x86-64 Linux.
-It installs a pinned compiler and Python tools into `.tools`.
+It installs a pinned compiler into `.tools`.
+uv manages Python and the locked dependencies.
 You also need `make` and a host C compiler.
 
 ```sh

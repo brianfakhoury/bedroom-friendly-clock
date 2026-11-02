@@ -11,8 +11,7 @@ case "$(uname -s)-$(uname -m)" in
  *) echo 'Supported hosts: Apple Silicon macOS and x86-64 Linux.' >&2; exit 1;;
 esac
 mkdir -p .tools
-python3 -m venv .tools/venv
-.tools/venv/bin/python -m pip install -r tools/requirements.txt
+uv sync --locked
 archive=.tools/riscv32-esp-elf.tar.xz
 url=https://github.com/espressif/crosstool-NG/releases/download/esp-16.1.0_20260609/riscv32-esp-elf-16.1.0_20260609-$target.tar.xz
 [ -f "$archive" ] || curl -fL "$url" -o "$archive"

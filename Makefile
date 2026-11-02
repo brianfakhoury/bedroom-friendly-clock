@@ -1,6 +1,6 @@
 TOOLS := $(if $(wildcard .tools/riscv32-esp-elf),.tools,../../work)
 CROSS ?= $(TOOLS)/riscv32-esp-elf/bin/riscv32-esp-elf-
-PYTHON ?= $(TOOLS)/venv/bin/python
+PYTHON ?= uv run --locked python
 PORT ?=
 CFLAGS := -march=rv32imac_zicsr_zifencei -mabi=ilp32 -mno-relax -flto -Os -g -fstrict-volatile-bitfields -ffreestanding -fno-builtin -fno-common -ffunction-sections -fdata-sections -Wall -Wextra -Werror -Ifirmware/hal -Ifirmware/drivers -Ifirmware/app
 SOURCES := $(wildcard firmware/hal/*.c firmware/drivers/*.c firmware/app/*.c) firmware/boot/start.S firmware/boot/wake.S
