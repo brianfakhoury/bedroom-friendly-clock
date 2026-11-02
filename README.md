@@ -18,33 +18,47 @@ Wi-Fi and Bluetooth are disabled. There is no network time service.
 
 ## Install firmware
 
-You need Python 3, a USB data cable, and this repository.
+You need Python 3 and a USB data cable. These commands are for macOS and Linux.
 
-1. Connect the board to USB.
-2. Tap the screen.
-3. Hold BOOT and KEY while the time is visible.
-4. Release both buttons.
-5. Run the installer:
+Download this repository and prepare the installer:
 
 ```sh
+git clone https://github.com/brianfakhoury/bedroom-friendly-clock.git
+cd bedroom-friendly-clock
 python3 -m venv .tools/venv
 .tools/venv/bin/python -m pip install -r tools/requirements.txt
+```
+
+Put the board in download mode:
+
+1. Disconnect the board from power, including any battery.
+2. Hold BOOT.
+3. Connect the USB cable while you hold BOOT.
+4. Release BOOT.
+
+Run the installer:
+
+```sh
 .tools/venv/bin/python tools/flash.py
 ```
 
 The installer downloads the latest release and checks its SHA-256 checksum.
 It selects a connected Espressif USB device or asks you to select one.
-It asks before it replaces the installed firmware.
+Confirm the device to replace its installed firmware.
+
+After installation, set the time with the instructions below.
 Use `--file build/clock.bin` to install a local build.
 Use `--release v0.10.2` to select a release.
 
-If USB is unavailable, disconnect the board. Hold KEY when you reconnect it.
-Keep KEY held for five seconds. Then release KEY and run the installer again.
-For a blank board, hold BOOT when you connect USB to enter the ROM loader.
-
 ## Set the time
 
-Enter USB maintenance mode with BOOT and KEY as described above.
+Start the clock in USB maintenance mode:
+
+1. Disconnect the board from power.
+2. Hold KEY.
+3. Reconnect USB while you hold KEY.
+4. Release KEY after five seconds.
+
 Use the port shown by the installer:
 
 ```sh
@@ -54,9 +68,16 @@ Use the port shown by the installer:
 
 The first command copies your computer's UTC time to the external RTC.
 The second command returns the clock to standby.
-The example port is for macOS. Your port can be different.
+Replace the example port with your board's port.
 Without battery power, disconnection from USB can erase the RTC time.
 Dashes indicate that the clock cannot read valid time.
+
+## Update an installed clock
+
+Tap the screen. While the digits or dashes are visible, hold BOOT and KEY together.
+Release both buttons. The clock stays awake for USB maintenance.
+Run `tools/flash.py` with the Python environment shown above.
+You can also use this maintenance mode to set the time without disconnecting power.
 
 ## Design
 
