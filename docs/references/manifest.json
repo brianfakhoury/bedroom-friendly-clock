@@ -1,0 +1,359 @@
+[
+  {
+    "file": "waveshare/schematic.pdf",
+    "source": "https://files.waveshare.com/wiki/ESP32-C6-Touch-AMOLED-2.16/ESP32-C6-Touch-AMOLED-2.16-Schematic.pdf",
+    "revision": null,
+    "sha256": "6918d8e87cbf6b5bd7193957571992958f08e6a0621a5a5d78cec6049b88bd22",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "datasheets/CO5300.pdf",
+    "source": "https://docs.waveshare.com/ESP32-C6-Touch-AMOLED-2.16/Resources-And-Documents",
+    "revision": null,
+    "sha256": "2ad0461aec31aa046e2661f52f43e9c36b36218c58c53f07217c73bef7d710c6",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "datasheets/AXP2101.pdf",
+    "source": "https://files.waveshare.com/wiki/common/X-power-AXP2101_SWcharge_V1.0.pdf",
+    "revision": null,
+    "sha256": "421011983c56034e1074d28e22826e8414d55f8dc5344cd67967942e3bc8b8d9",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "datasheets/PCF85063A.pdf",
+    "source": "https://www.nxp.com/docs/en/data-sheet/PCF85063A.pdf",
+    "revision": null,
+    "sha256": "a09223dbb64278087ed566ba7597399ef40144da36905f6875d5aaf430f6000b",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "datasheets/QMI8658A.pdf",
+    "source": "https://files.waveshare.com/upload/5/5f/QMI8658A_Datasheet_Rev_A.pdf",
+    "revision": null,
+    "sha256": "bc371af17cd94fca481a3b40a89417776996b7baa50dacf20e9f53d5a6a57b85",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/private_include/pmu_bit_defs.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/private_include/pmu_bit_defs.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "d084196fb226cba1ac61d9d032fab9e15aa2f1bd2ab6ea0af34c1450ffbc4bd6",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/lpwdt_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/lpwdt_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "3ca493bb62ad817a2c28068a534489050ab6d0554a961e4f6fa0a778f90274c5",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/rtc_io_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/rtc_io_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "41924919fa1708729e292523d0248789fbf5fdf726f9fa332498e77aa0fcc92b",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/include/soc/pmu_icg_mapping.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/include/soc/pmu_icg_mapping.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "efd3efd20daf3599e50dde566be29e49ffe7e7f9b41c15ba3560ddc87d8c63dd",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/include/soc/soc_caps.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/include/soc/soc_caps.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "ccdaf5c0b08a04e647f6cb63968e5d61821e95d19f91c4d0c51b574604cf2d08",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/pmu_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/pmu_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "26cfe24968aeda562074efb70b9c923627282d6b5e73e48490bf40773f82b72c",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_io_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_io_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "e5395b034e330e52b4d58cd52dc151f30b6007f7c4dfa8e764ce06c00a86a0dc",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_aon_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_aon_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "537e6c47337c3ad7257ff087157d54e47c91de376a8cf274a4eb3d23626a2638",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_timer_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_timer_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "6941ffa949f3351c641c1788824732507edf18aeb11d1e8d0589ba1d49bab96e",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_wdt_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_wdt_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "f22073cf306696c84e9982192303b349050866e49e04a3c2a954b3ce93a1be6f",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/pcr_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/pcr_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "8972e97ee3629b97db85b4b41b11e2223d4429ec0b2f154a4a5bafa42f8eed21",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/gpio_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/gpio_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "cdfd68565fd88be714a14748d02395acf5fbe98261568460a442a76aafe574b0",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/LICENSE",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/LICENSE",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "waveshare/02_Example/XiaoZhi-v2.2.5/main/boards/waveshare/esp32-c6-touch-amoled-2.16/config.h",
+    "source": "https://github.com/waveshareteam/ESP32-C6-Touch-AMOLED-2.16/blob/294543798f1a44e2f2c4d2976522323f2beee11d/02_Example/XiaoZhi-v2.2.5/main/boards/waveshare/esp32-c6-touch-amoled-2.16/config.h",
+    "revision": "294543798f1a44e2f2c4d2976522323f2beee11d",
+    "sha256": "0acee8d9eca6892ef8fe8d80df93ac0c5be14646e6dc5db65bd1dc5f84851eef",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "waveshare/02_Example/ESP-IDF-v5.5.3/09_LVGL_V9_Test/main/user_config.h",
+    "source": "https://github.com/waveshareteam/ESP32-C6-Touch-AMOLED-2.16/blob/294543798f1a44e2f2c4d2976522323f2beee11d/02_Example/ESP-IDF-v5.5.3/09_LVGL_V9_Test/main/user_config.h",
+    "revision": "294543798f1a44e2f2c4d2976522323f2beee11d",
+    "sha256": "3bcb7587cab0c9e81170df16209deffb14006800f4fe93880374007364105f76",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "waveshare/02_Example/ESP-IDF-v5.5.3/09_LVGL_V9_Test/components/port_bsp/display_bsp.cpp",
+    "source": "https://github.com/waveshareteam/ESP32-C6-Touch-AMOLED-2.16/blob/294543798f1a44e2f2c4d2976522323f2beee11d/02_Example/ESP-IDF-v5.5.3/09_LVGL_V9_Test/components/port_bsp/display_bsp.cpp",
+    "revision": "294543798f1a44e2f2c4d2976522323f2beee11d",
+    "sha256": "a9349b1309bf0fce6e194fd7318d3cd08e978b0dc5631107948c14318877aa52",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/rtc_clk.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/rtc_clk.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "6c2a1acefc72640a99eef39ea74d6583505adceaccdea210ff884204e4d23cac",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/pmu_sleep.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/pmu_sleep.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "d919b498944d04d766c298d8ceddd738ccc688ee562d45227185cd23ae63a337",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/pmu_param.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/pmu_param.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "dbae9453cf59c8d5629212da07933f000ca3e8f55145d5f113621a4778bc275b",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/private_include/pmu_param.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/private_include/pmu_param.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "cca7ff49b947ed2e864ec10a96c1aebf998ea79e6665becbb665e90daa003927",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/clk_tree_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/clk_tree_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "a193f6c07c57c0d00fcbf6a7f6b206f65cbb8f497732d5e60fe67ab3c871ac08",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/regi2c_ctrl_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/regi2c_ctrl_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "227cb029d23d1ab0cc0278c140a53e3bcaaee24f94c3a1a9afdaebda31e947e4",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/include/soc/regi2c_defs.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/include/soc/regi2c_defs.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "33011a3b2f271a684aae9e92634a960a312e610b41de1d2031f2c42e643fc229",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_rom/esp32c6/include/esp32c6/rom/rtc.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_rom/esp32c6/include/esp32c6/rom/rtc.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "223a8d25821c67852473ac662807254ec9715eafebefcb3e8fe3ec1343c5af8a",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_rom/esp32c6/ld/esp32c6.rom.ld",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_rom/esp32c6/ld/esp32c6.rom.ld",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "eb2b0865162092344cc2224b8a3c4ea75134f07e6b034267c6ea44ad9ef89fb1",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/sleep_modes.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/sleep_modes.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "0b5fd82e2697571291c48b4e7c198315b177d1661346afd3c7a00435b06af655",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/pmu_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/pmu_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "c7c972169758e7f077c1d20f3ba4910a97a19b9dbbc502bdaf13dc5eea8857b6",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/lp_aon_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/lp_aon_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "24b1b0ec7b60b1a7c1d9908b1a65703a9da3e320c68e393500f0a42d5fc53971",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/lp_timer_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/lp_timer_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "273abcc3414d661aa368fa59c06f17663375585aa71eadef5db18ae6026f22b6",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/usb_serial_jtag_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/usb_serial_jtag_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "cd4a6c7fa2c04b0e7450d6375c0542fb1a6b02b40a0a607bd774b76e7c4b8f79",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "datasheets/ESP32-C6-TRM-v1.2.pdf",
+    "source": "https://documentation.espressif.com/esp32-c6_technical_reference_manual_en.pdf",
+    "revision": "Version 1.2",
+    "sha256": "e08d5b61ebcfa2a78f9735e3f721817cb1dc2df9cf05096d2f0399eaba9f1734",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_hw_support/port/esp32c6/pmu_init.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_hw_support/port/esp32c6/pmu_init.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "523176b9937f5dec2d86eab37ec1299bffeed281185e86888ca2069e32e96b97",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_clkrst_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_clkrst_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "2a778d6def05ecdf326b68b386f92507c800dd6bedd2c767a5c3d31d35b852e3",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/ulp/lp_core/lp_core.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/ulp/lp_core/lp_core.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "fd6af846ad584b4a9e4b6e893dc5cd03a5c101b9d7ff54e864f34c996224c713",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/lp_core_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/lp_core_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "09bccf78284955ebab8d34c04fb2baafdfdf7a78175ccaccbfd9ce2294b25ff1",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lpperi_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lpperi_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "f85610b5da541c371a07fd69419b62f3f1c3ceba225f89853127209393e54e5f",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_tee_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_tee_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "5e9fcc36e02a7f779d65a06e4476a15bde1ae3b576504506c9eb56484278dacd",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/lp_apm_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/lp_apm_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "f19cd5f7c13b5ec40bb99afab147df69975636aa698c3bbf59c9cff5a5dafdd8",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/reg_base.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/reg_base.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "ca5eb22e9486be6fd31e7b89bf149ccc7b7622d5aeb7c75154edc88efc8995b8",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/esp_rom/patches/esp_rom_hp_regi2c_esp32c6.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/esp_rom/patches/esp_rom_hp_regi2c_esp32c6.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "e557257cf265c002f9e990100fa4a9f4b0428cb1956b33b1a5f3573f6be7a5fe",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/pmu_struct.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/pmu_struct.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "ffcc82b0c5e6dcbfdd952ac249e6c214a15a3794688cfcc205edc6c296948fe3",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/efuse_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/efuse_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "3d6e956d3cd58523da83660a8d6e6d8c4e85af4f99a5d267ddaac86b6e034577",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/register/soc/i2c_ana_mst_reg.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/register/soc/i2c_ana_mst_reg.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "62d37246929ca36a438123abdd642a0a3ed38376789077d64bf20a3a8c38ac1b",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/hal/esp32c6/include/hal/efuse_ll.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/hal/esp32c6/include/hal/efuse_ll.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "89316e6d204bda8ae18f999573f639eaa0df5dc76f56abf2370c4f70da6faf16",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/include/modem/modem_lpcon_struct.h",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/include/modem/modem_lpcon_struct.h",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "a640342f2fee918f57ac21a6e8a860c83708390fd7dd789ab915e7bbdfda674d",
+    "archived": "2026-11-01"
+  },
+  {
+    "file": "esp-idf/components/soc/esp32c6/gpio_periph.c",
+    "source": "https://github.com/espressif/esp-idf/blob/f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0/components/soc/esp32c6/gpio_periph.c",
+    "revision": "f5c3654a1c2d2a01f7f67def7a0dc48e691f63c0",
+    "sha256": "001a98020f0acb61c88e3dd6878aa32b0a484eb200d0712b0f3177842532b782",
+    "archived": "2026-11-01"
+  }
+]
