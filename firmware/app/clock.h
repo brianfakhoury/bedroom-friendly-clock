@@ -5,10 +5,11 @@
 typedef struct {
   bool visible, held;
   unsigned brightness, rotation, fade_from, level;
-  uint64_t shown_at;
+  uint64_t shown_at, refreshed_at;
   uint32_t activations, prepare_us;
 } clock_state;
 bool clock_activate(clock_state *clock);
+void clock_hold(clock_state *clock, bool held);
 // Returns true exactly when a visible interval ends.
 bool clock_update(clock_state *clock);
 // Absolute SYSTIMER deadline; zero means no scheduled clock work.

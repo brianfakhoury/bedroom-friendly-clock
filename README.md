@@ -63,7 +63,7 @@ uv run tools/clock.py sleep
 ```
 
 The first command copies your computer's UTC time to the external RTC.
-The second command releases the display; it fades out and returns to standby.
+The second command releases the display. If the tap timeout has passed, it starts fading out immediately.
 You can press KEY again instead.
 Both tools detect connected Espressif USB devices.
 If several are connected, select one from the list. Use `--port PORT` to select a port explicitly.

@@ -21,9 +21,7 @@ static void poll_usb(void) {
   if (service_poll(&clock))
     activate();
   if (service_take_sleep_request()) {
-    clock.held = false;
-    if (clock.visible)
-      activate();
+    clock_hold(&clock, false);
     delay_us(20000); // Allow the final USB reply to leave before shutdown.
   }
 }
@@ -41,8 +39,9 @@ static void handle_input(unsigned events, bool *touch_down,
   if ((events & EVENT_BUTTON) && ticks() - *last_button > 200 * TICKS_PER_MS) {
     *last_button = ticks();
     if (events & EVENT_KEY)
-      clock.held = !clock.held;
-    activate();
+      clock_hold(&clock, !clock.held);
+    else
+      activate();
   }
 }
 
@@ -80,6 +79,6 @@ int main(void) {
   clock.held = !gpio_get(BUTTON_KEY);
   if (clock.held)
     activate();
-  usb_puts("READY BEDSIDE CLOCK 0.11.0\n");
+  usb_puts("READY BEDSIDE CLOCK 0.11.1\n");
   run();
 }

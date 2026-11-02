@@ -85,10 +85,22 @@ int main(void) {
   at(14000);
   assert(!clock_update(&c) && c.visible && drawn_hour == 4);
   assert(panel_level == 255);
-  c.held = false;
-  clock_activate(&c);
-  at(17000);
+  assert(c.shown_at == 10000 * TICKS_PER_MS);
+  clock_hold(&c, false);
+  assert(!clock_update(&c) && panel_level == 255);
+  at(14175);
+  assert(!clock_update(&c) && panel_level > 0 && panel_level < 255);
+  at(14350);
   assert(clock_update(&c) && !c.visible);
+  at(20000);
+  clock_activate(&c);
+  at(20180);
+  clock_update(&c);
+  clock_hold(&c, true);
+  at(21000);
+  clock_hold(&c, false);
+  assert(c.shown_at == 20000 * TICKS_PER_MS);
+  assert(clock_deadline(&c) == 22650 * TICKS_PER_MS);
   puts("PASS: lifecycle, absolute hold deadline, retrigger, rotation cleanup, "
        "sensor failures, 12-hour display boundaries");
 }

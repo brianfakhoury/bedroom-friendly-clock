@@ -22,7 +22,7 @@ Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the di
 6. [`hal/time.c`](../firmware/hal/time.c) owns the SYSTIMER and pending-event wait. [`app/board.h`](../firmware/app/board.h) names the board wiring; [`app/board.c`](../firmware/app/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
 7. [`app/service.c`](../firmware/app/service.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
 
-While held, the clock refreshes its RTC reading and orientation once per second. Releasing the hold starts a normal three-second display interval.
+While held, the clock refreshes its RTC reading and orientation once per second. Releasing the hold preserves the original tap timeout. If it has expired, fade-out starts immediately.
 
 ## Lifecycle and invariants
 
