@@ -45,13 +45,20 @@ bool clock_update(clock_state *clock) {
   if (!clock->visible)
     return false;
   unsigned elapsed = (unsigned)((ticks() - clock->shown_at) / TICKS_PER_MS);
-  unsigned level =
-      animation_level(elapsed, clock->fade_from, clock->brightness);
+  // While latched, refresh from the RTC once per second. Retained pixels
+  // avoid a full redraw, and activation preserves the current brightness.
+  if (clock->held && elapsed >= 1000) {
+    clock_activate(clock);
+    elapsed = 0;
+  }
+  unsigned level = animation_level(
+      clock->held && elapsed > FADE_IN_MS ? FADE_IN_MS : elapsed,
+      clock->fade_from, clock->brightness);
   if (level != clock->level) {
     display_brightness(level);
     clock->level = level;
   }
-  if (elapsed < DISPLAY_DURATION_MS)
+  if (clock->held || elapsed < DISPLAY_DURATION_MS)
     return false;
   display_off();
   clock->visible = false;
@@ -62,6 +69,8 @@ uint64_t clock_deadline(const clock_state *clock) {
   if (!clock->visible)
     return 0;
   unsigned elapsed = (unsigned)((ticks() - clock->shown_at) / TICKS_PER_MS);
+  if (clock->held && elapsed >= FADE_IN_MS)
+    return clock->shown_at + 1000 * TICKS_PER_MS;
   // Anchor each deadline to activation, so other work cannot extend the hold.
   return clock->shown_at +
          (uint64_t)(elapsed + animation_next_ms(elapsed)) * TICKS_PER_MS;

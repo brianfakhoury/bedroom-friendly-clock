@@ -63,10 +63,12 @@ unsigned wait_until(uint64_t deadline) {
   unsigned event = (REG(USB_FIFO_CONFIG) & 4) ? EVENT_USB : 0;
   if (deadline && ticks() >= deadline)
     event |= EVENT_TIMER;
-  if (REG(GPIO_STATUS) & BUTTON_MASK) {
-    REG(GPIO_STATUS_CLEAR) = BUTTON_MASK;
-    event |= EVENT_BUTTON;
-  }
+  unsigned buttons = REG(GPIO_STATUS) & BUTTON_MASK;
+  REG(GPIO_STATUS_CLEAR) = buttons;
+  if (buttons & BIT(BUTTON_BOOT))
+    event |= EVENT_BOOT;
+  if (buttons & BIT(BUTTON_KEY))
+    event |= EVENT_KEY;
   if (REG(GPIO_STATUS) & BIT(TOUCH_IRQ)) {
     REG(GPIO_STATUS_CLEAR) = BIT(TOUCH_IRQ);
     event |= EVENT_TOUCH;

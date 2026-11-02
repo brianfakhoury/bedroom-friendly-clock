@@ -10,7 +10,7 @@ Runtime code, constants and clock state reside in the C6's 16 KiB retained LP SR
 
 Wake restores timers, the USB peripheral clock and touch pin routing. `board_resume()` restores GPIO routes and safe output levels before releasing per-pin holds, then restores software I²C. It does not reset the panel or touch controller. The application reads the RTC, samples orientation and resumes its existing renderer. The LP watchdog pauses during legitimate sleep and protects active work; it cannot detect a permanently lost wake input.
 
-Cold boot enters standby unless KEY is held. While visible, BOOT+KEY enters USB maintenance; SLEEP leaves it. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and maintenance. BOOT/KEY are not supported standby wake inputs.
+Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the display and USB awake. KEY toggles a display hold while awake; SLEEP also releases the hold. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and display hold. BOOT/KEY are not supported standby wake inputs.
 
 ## Read the code in this order
 
@@ -21,6 +21,8 @@ Cold boot enters standby unless KEY is held. While visible, BOOT+KEY enters USB 
 5. [`drivers/display.c`](../firmware/drivers/display.c) knows rectangles, brightness, display on/off, and panel initialization. It does not know what time is or how digits look. Other drivers own the RTC, touch, accelerometer, and PMIC protocols.
 6. [`hal/time.c`](../firmware/hal/time.c) owns the SYSTIMER and pending-event wait. [`app/board.h`](../firmware/app/board.h) names the board wiring; [`app/board.c`](../firmware/app/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
 7. [`app/service.c`](../firmware/app/service.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
+
+While held, the clock refreshes its RTC reading and orientation once per second. Releasing the hold starts a normal three-second display interval.
 
 ## Lifecycle and invariants
 

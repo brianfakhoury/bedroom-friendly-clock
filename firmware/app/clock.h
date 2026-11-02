@@ -3,7 +3,7 @@
 #include <stdint.h>
 // The entire presentation state. Time itself belongs to the external RTC.
 typedef struct {
-  bool visible;
+  bool visible, held;
   unsigned brightness, rotation, fade_from, level;
   uint64_t shown_at;
   uint32_t activations, prepare_us;

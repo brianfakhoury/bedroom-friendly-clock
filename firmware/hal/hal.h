@@ -22,7 +22,9 @@ void delay_us(uint32_t us);
 void events_init(void);
 // Zero deadline means wait indefinitely; pending work always wins.
 unsigned wait_until(uint64_t deadline);
-#define EVENT_BUTTON 1u
+#define EVENT_BOOT 1u
+#define EVENT_KEY 16u
+#define EVENT_BUTTON (EVENT_BOOT | EVENT_KEY)
 #define EVENT_USB 2u
 #define EVENT_TIMER 4u
 void watchdogs_disable(void);

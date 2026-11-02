@@ -57,7 +57,7 @@ def main():
             # esptool checks the chip type and verifies the written flash data.
             subprocess.run([sys.executable, '-m', 'esptool', '--chip', 'esp32c6',
                             '--port', port, '--no-stub', 'write_flash', '0', str(path)], check=True)
-            print('Firmware installed. Enter maintenance mode to set the time.')
+            print('Firmware installed. See README.md to keep USB awake and set the time.')
         return 0
     except (OSError, URLError, ValueError, KeyError, StopIteration,
             subprocess.CalledProcessError, ImportError, EOFError) as error:

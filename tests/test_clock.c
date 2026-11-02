@@ -75,6 +75,20 @@ int main(void) {
     local_hour = hours[i];
     assert(clock_activate(&c) && drawn_hour == expected[i]);
   }
+  c.held = true;
+  at(10000);
+  clock_activate(&c);
+  at(10180);
+  assert(!clock_update(&c) && panel_level == 255);
+  assert(clock_deadline(&c) == 11000 * TICKS_PER_MS);
+  local_hour = 4;
+  at(14000);
+  assert(!clock_update(&c) && c.visible && drawn_hour == 4);
+  assert(panel_level == 255);
+  c.held = false;
+  clock_activate(&c);
+  at(17000);
+  assert(clock_update(&c) && !c.visible);
   puts("PASS: lifecycle, absolute hold deadline, retrigger, rotation cleanup, "
        "sensor failures, 12-hour display boundaries");
 }

@@ -7,24 +7,23 @@
 #include "watchdog.h"
 
 static clock_state clock = {.brightness = 128};
-static bool maintenance;
 
 static void activate(void) {
   bool valid = clock_activate(&clock);
   // USB can back-pressure while reconnecting after sleep. Keep it off the
-  // normal display path; maintenance retains the host test protocol.
-  if (maintenance)
+  // normal display path; latched operation permits host diagnostics.
+  if (clock.held)
     usb_puts(valid ? "ON\n" : "ON RTC_INVALID\n");
 }
 
 // Keep USB work outside the normal wake-to-display path.
-static void poll_maintenance(void) {
-  if (!gpio_get(BUTTON_BOOT) && !gpio_get(BUTTON_KEY))
-    maintenance = true;
+static void poll_usb(void) {
   if (service_poll(&clock))
     activate();
   if (service_take_sleep_request()) {
-    maintenance = false;
+    clock.held = false;
+    if (clock.visible)
+      activate();
     delay_us(20000); // Allow the final USB reply to leave before shutdown.
   }
 }
@@ -41,6 +40,8 @@ static void handle_input(unsigned events, bool *touch_down,
   }
   if ((events & EVENT_BUTTON) && ticks() - *last_button > 200 * TICKS_PER_MS) {
     *last_button = ticks();
+    if (events & EVENT_KEY)
+      clock.held = !clock.held;
     activate();
   }
 }
@@ -51,10 +52,9 @@ static void run(void) {
   uint64_t last_button = 0;
   for (;;) {
     watchdog_feed();
-    poll_maintenance();
-    if (clock_update(&clock) && maintenance)
-      usb_puts("OFF\n");
-    if (!clock.visible && !maintenance) {
+    poll_usb();
+    clock_update(&clock);
+    if (!clock.visible && !clock.held) {
       // Successful sleep restarts at wake_main. A return means a touch
       // arrived during the pin handoff and must be handled here instead.
       standby_enter();
@@ -77,7 +77,9 @@ __attribute__((used, externally_visible)) void wake_main(void) {
 
 int main(void) {
   board_init();
-  maintenance = !gpio_get(BUTTON_KEY);
-  usb_puts("READY BEDSIDE CLOCK 0.10.2\n");
+  clock.held = !gpio_get(BUTTON_KEY);
+  if (clock.held)
+    activate();
+  usb_puts("READY BEDSIDE CLOCK 0.11.0\n");
   run();
 }

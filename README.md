@@ -51,12 +51,9 @@ Use `--release v0.10.2` to select a release.
 
 ## Set the time
 
-Start the clock in USB maintenance mode:
-
-1. Disconnect the board from power.
-2. Hold KEY.
-3. Reconnect USB while you hold KEY.
-4. Release KEY after five seconds.
+Tap the screen, then press KEY to keep the display and USB awake.
+If the clock has no valid time, it shows dashes.
+You can also hold KEY while connecting power to start with the display held on.
 
 Set the time, then return the clock to standby:
 
@@ -66,7 +63,8 @@ uv run tools/clock.py sleep
 ```
 
 The first command copies your computer's UTC time to the external RTC.
-The second command returns the clock to standby.
+The second command releases the display; it fades out and returns to standby.
+You can press KEY again instead.
 Both tools detect connected Espressif USB devices.
 If several are connected, select one from the list. Use `--port PORT` to select a port explicitly.
 Without battery power, disconnection from USB can erase the RTC time.
@@ -74,10 +72,12 @@ Dashes indicate that the clock cannot read valid time.
 
 ## Update an installed clock
 
-Tap the screen. While the digits or dashes are visible, hold BOOT and KEY together.
-Release both buttons. The clock stays awake for USB maintenance.
+KEY toggling is available in the source build for 0.11.0.
+For release 0.10.2 and earlier, hold BOOT and KEY together while the display is visible instead.
+
+Tap the screen, then press KEY to keep the display and USB awake.
 Run `uv run tools/flash.py`.
-You can also use this maintenance mode to set the time without disconnecting power.
+Press KEY again to return to normal operation.
 
 ## Design
 
