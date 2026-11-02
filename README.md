@@ -15,7 +15,7 @@ The display uses Pacific time, including daylight saving time. To use another ti
 
 ## Install firmware
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and connect a USB data cable. These commands are for macOS and Linux.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and `make`, and connect a USB data cable. These commands are for macOS and Linux.
 
 Download this repository:
 
@@ -34,12 +34,12 @@ Put the board in download mode:
 Run the installer:
 
 ```sh
-uv run tools/flash.py
+make flash-release
 ```
 
 The installer downloads the latest release and checks its SHA-256 checksum. It selects a connected Espressif USB device or asks you to select one. Confirm the device to replace its installed firmware.
 
-After installation, set the time with the instructions below. Use `--file build/clock.bin` to install a local build. Use `--release v0.11.1` to select a release.
+After installation, set the time with the instructions below. Use `make flash` to build and install local source after `make setup`. Use `make flash-release RELEASE=v0.11.1` to select a release.
 
 ## Set the time
 
@@ -48,17 +48,17 @@ Tap the screen, then press KEY to keep the display and USB awake. If the clock h
 Set the time, then return the clock to standby:
 
 ```sh
-uv run tools/clock.py set-time
-uv run tools/clock.py sleep
+make set-time
+make sleep
 ```
 
-The first command copies your computer's UTC time to the external RTC. The second command releases the display. If the tap timeout has passed, it starts fading out immediately. You can press KEY again instead. Both tools detect connected Espressif USB devices. If several are connected, select one from the list. Use `--port PORT` to select a port explicitly. Without battery power, disconnection from USB can erase the RTC time. Dashes indicate that the clock cannot read valid time.
+The first command copies your computer's UTC time to the external RTC. The second command releases the display. If the tap timeout has passed, it starts fading out immediately. You can press KEY again instead. Both tools detect connected Espressif USB devices. If several are connected, select one from the list. Add `PORT=your-port` to select a port explicitly. Without battery power, disconnection from USB can erase the RTC time. Dashes indicate that the clock cannot read valid time.
 
 ## Update an installed clock
 
 For release 0.10.2 and earlier, hold BOOT and KEY together while the display is visible to enable USB.
 
-Tap the screen, then press KEY to keep the display and USB awake. Run `uv run tools/flash.py`. Press KEY again to return to normal operation.
+Tap the screen, then press KEY to keep the display and USB awake. Run `make flash-release`. Press KEY again to return to normal operation.
 
 ## Design
 
