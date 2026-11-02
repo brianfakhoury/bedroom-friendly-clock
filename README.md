@@ -1,9 +1,7 @@
 # Bedroom-friendly clock
 
-A clock that keeps the room dark. Tap the screen to see the time.
-
-This firmware is for the **Waveshare ESP32-C6-AMOLED-2.16** only.
-The 2.06-inch board has different hardware.
+A touch-activated bedside clock for the **Waveshare ESP32-C6-AMOLED-2.16**.
+The screen stays dark until you tap it.
 
 ## Operation
 
@@ -106,8 +104,6 @@ Battery current, battery life, and long-duration reliability remain unmeasured.
 
 Read the [architecture](docs/architecture.md), [power audit](docs/power-audit.md),
 [findings](docs/findings.md), and [hardware references](docs/references/README.md).
-Older investigation records describe experiments, including failed configurations.
-They do not all describe the current firmware.
 
 ## License
 
