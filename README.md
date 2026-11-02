@@ -58,16 +58,17 @@ Start the clock in USB maintenance mode:
 3. Reconnect USB while you hold KEY.
 4. Release KEY after five seconds.
 
-Use the port shown by the installer:
+Set the time, then return the clock to standby:
 
 ```sh
-uv run tools/clock.py set-time --port /dev/cu.usbmodem1101
-uv run tools/clock.py sleep --port /dev/cu.usbmodem1101
+uv run tools/clock.py set-time
+uv run tools/clock.py sleep
 ```
 
 The first command copies your computer's UTC time to the external RTC.
 The second command returns the clock to standby.
-Replace the example port with your board's port.
+Both tools detect connected Espressif USB devices.
+If several are connected, select one from the list. Use `--port PORT` to select a port explicitly.
 Without battery power, disconnection from USB can erase the RTC time.
 Dashes indicate that the clock cannot read valid time.
 

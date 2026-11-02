@@ -4,9 +4,12 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 from unittest.mock import patch
 from types import SimpleNamespace
+
+sys.path.insert(0, str(Path(__file__).parents[1] / 'tools'))
 
 spec = importlib.util.spec_from_file_location('flash', Path(__file__).parents[1] / 'tools/flash.py')
 flash = importlib.util.module_from_spec(spec)

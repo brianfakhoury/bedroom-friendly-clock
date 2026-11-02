@@ -4,12 +4,17 @@ import argparse
 from datetime import datetime, timezone
 import time
 import serial
+from device import select_port
 p = argparse.ArgumentParser()
 p.add_argument('command', choices=['set-time', 'status', 'show', 'monitor', 'brightness', 'sleep'])
-p.add_argument('--port', default='/dev/cu.usbmodem1101')
+p.add_argument('--port', help='USB serial port; otherwise detect Espressif devices')
 p.add_argument('--level', type=int, choices=range(1,256), default=128, metavar='1..255')
 a = p.parse_args()
-with serial.Serial(a.port, 115200, timeout=0.2) as s:
+try:
+    port = select_port(a.port)
+except (ValueError, EOFError) as error:
+    p.exit(1, f'{error}\n')
+with serial.Serial(port, 115200, timeout=0.2) as s:
     if a.command == 'set-time':
         cmd = 'TIME ' + datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')
     elif a.command == 'brightness':
