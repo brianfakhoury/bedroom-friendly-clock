@@ -20,7 +20,7 @@ with serial.Serial(port, 115200, timeout=0.2) as s:
     elif a.command == 'brightness':
         cmd = f'DIM {a.level}'
     else:
-        cmd = {'status': 'STATUS', 'show': 'SHOW', 'monitor': '': 'SLEEP'}[a.command]
+        cmd = {'status': 'STATUS', 'show': 'SHOW', 'monitor': ''}[a.command]
     if cmd:
         s.write((cmd + '\n').encode('ascii'))
         s.flush()
