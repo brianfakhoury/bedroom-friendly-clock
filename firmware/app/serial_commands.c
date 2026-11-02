@@ -1,11 +1,13 @@
-#include "service.h"
+#include "serial_commands.h"
 #include "accel.h"
 #include "hal.h"
 #include "local_time.h"
 #include "power.h"
 #include "rtc.h"
+#define USB_REPLY_GRACE_US 20000u
+
 static bool sleep_request;
-bool service_take_sleep_request(void) {
+bool serial_commands_take_sleep_request(void) {
   bool r = sleep_request;
   sleep_request = false;
   return r;
@@ -53,6 +55,8 @@ static bool parse_time(const char *p, datetime *d) {
 static bool command(clock_state *clock) {
   if (equal(line, "SLEEP")) {
     usb_puts("OK SLEEP\n");
+    // Give the reply time to leave before the application can power down USB.
+    delay_us(USB_REPLY_GRACE_US);
     sleep_request = true;
     return false;
   }
@@ -133,7 +137,7 @@ static bool command(clock_state *clock) {
   return false;
 }
 
-bool service_poll(clock_state *clock) {
+bool serial_commands_poll(clock_state *clock) {
   // Bound each turn so a busy host cannot starve fade deadlines or touch input.
   for (unsigned budget = 0; budget < 64; budget++) {
     int c = usb_get();
