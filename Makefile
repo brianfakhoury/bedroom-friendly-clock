@@ -36,13 +36,13 @@ flash: all
 flash-release:
 	$(PYTHON) tools/flash.py --release $(RELEASE) $(if $(PORT),--port $(PORT))
 
-set-time sleep status:
+set-time status:
 	$(PYTHON) tools/clock.py $@ $(if $(PORT),--port $(PORT))
 
 clean:
 	rm -f build/clock.elf build/clock.bin build/clock.map
 
-.PHONY: all setup ram flash flash-release set-time sleep status clean
+.PHONY: all setup ram flash flash-release set-time status clean
 
 test:
 	$(PYTHON) -m unittest discover -s tests -p "test_*.py"

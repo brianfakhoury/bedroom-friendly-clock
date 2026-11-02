@@ -45,14 +45,13 @@ After installation, set the time with the instructions below. Use `make flash` t
 
 Tap the screen, then press KEY to keep the display and USB awake. If the clock has no valid time, it shows dashes. You can also hold KEY while connecting power to start with the display held on.
 
-Set the time, then return the clock to standby:
+Set the time:
 
 ```sh
 make set-time
-make sleep
 ```
 
-The first command copies your computer's UTC time to the external RTC. The second command releases the display. If the tap timeout has passed, it starts fading out immediately. You can press KEY again instead. Both tools detect connected Espressif USB devices. If several are connected, select one from the list. Add `PORT=your-port` to select a port explicitly. Without battery power, disconnection from USB can erase the RTC time. Dashes indicate that the clock cannot read valid time.
+This command copies your computer's UTC time to the external RTC. Press KEY again to return to normal operation. The tool detects connected Espressif USB devices. If several are connected, select one from the list. Add `PORT=your-port` to select a port explicitly. Without battery power, disconnection from USB can erase the RTC time. Dashes indicate that the clock cannot read valid time.
 
 ## Update an installed clock
 
