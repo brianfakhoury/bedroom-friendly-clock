@@ -56,7 +56,8 @@ void clock_hold(clock_state *clock, bool held) {
     if (ticks() - clock->shown_at > fade_start)
       clock->shown_at = ticks() - fade_start;
   }
-  clock->held = held;
+  // A hold keeps an existing display visible; it cannot keep a dark clock awake.
+  clock->held = held && clock->visible;
 }
 
 bool clock_update(clock_state *clock) {

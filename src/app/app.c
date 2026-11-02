@@ -57,7 +57,8 @@ static _Noreturn void run(void) {
     watchdog_feed();
     poll_usb();
     clock_update(&clock);
-    if (!clock.visible && !clock.held) {
+    if (!clock.visible) {
+      clock_hold(&clock, false);
       // Successful sleep restarts at wake_main. A return means a touch
       // arrived during the pin handoff and must be handled here instead.
       standby_enter();

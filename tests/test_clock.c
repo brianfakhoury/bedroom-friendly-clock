@@ -43,6 +43,8 @@ static void at(unsigned ms) { now = (uint64_t)ms * TICKS_PER_MS; }
 int main(void) {
   clock_state c = {.brightness = 255};
   assert(clock_deadline(&c) == 0 && !clock_update(&c));
+  clock_hold(&c, true);
+  assert(!c.held); // A dark display cannot acquire a hold.
   assert(clock_activate(&c));
   assert(c.visible && on_count == 1 && panel_level == 0 && drawn_valid);
   at(180);
