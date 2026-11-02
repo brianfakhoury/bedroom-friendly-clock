@@ -14,13 +14,13 @@ Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the di
 
 ## Read the code in this order
 
-1. [`app/main.c`](../firmware/app/main.c) defines cold-boot and deep-sleep wake entry points. [`app/app.c`](../firmware/app/app.c) owns clock state, input handling, USB coordination, and the event loop.
-2. [`app/clock.c`](../firmware/app/clock.c) owns the presentation lifecycle: sample orientation, read UTC, prepare digits, fade, hold, hide. Its explicit `clock_state` contains presentation state, not a second wall clock. It has no USB parsing or register access.
-3. [`app/animation.c`](../firmware/app/animation.c), [`app/orientation.c`](../firmware/app/orientation.c), and [`app/local_time.c`](../firmware/app/local_time.c) contain deterministic calculations. Pacific daylight-saving policy and service date formatting are outside the RTC driver.
-4. [`app/digits.c`](../firmware/app/digits.c) owns the seven-segment shapes and placement. Orientation and ink are explicit arguments. Erasing uses the same geometry with black ink, so rotated images cannot leave old segments behind.
-5. [`drivers/display.c`](../firmware/drivers/display.c) knows rectangles, brightness, display on/off, and panel initialization. It does not know what time is or how digits look. Other drivers own the RTC, touch, accelerometer, and PMIC protocols.
-6. [`hal/time.c`](../firmware/hal/time.c) owns the SYSTIMER and pending-event wait. [`board/board.h`](../firmware/board/board.h) names the board wiring; [`board/board.c`](../firmware/board/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
-7. [`app/serial_commands.c`](../firmware/app/serial_commands.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
+1. [`app/main.c`](../src/app/main.c) defines cold-boot and deep-sleep wake entry points. [`app/app.c`](../src/app/app.c) owns clock state, input handling, USB coordination, and the event loop.
+2. [`app/clock.c`](../src/app/clock.c) owns the presentation lifecycle: sample orientation, read UTC, prepare digits, fade, hold, hide. Its explicit `clock_state` contains presentation state, not a second wall clock. It has no USB parsing or register access.
+3. [`app/animation.c`](../src/app/animation.c), [`app/orientation.c`](../src/app/orientation.c), and [`app/local_time.c`](../src/app/local_time.c) contain deterministic calculations. Pacific daylight-saving policy and service date formatting are outside the RTC driver.
+4. [`app/digits.c`](../src/app/digits.c) owns the seven-segment shapes and placement. Orientation and ink are explicit arguments. Erasing uses the same geometry with black ink, so rotated images cannot leave old segments behind.
+5. [`drivers/display.c`](../src/drivers/display.c) knows rectangles, brightness, display on/off, and panel initialization. It does not know what time is or how digits look. Other drivers own the RTC, touch, accelerometer, and PMIC protocols.
+6. [`hal/time.c`](../src/hal/time.c) owns the SYSTIMER and pending-event wait. [`board/board.h`](../src/board/board.h) names the board wiring; [`board/board.c`](../src/board/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
+7. [`app/serial_commands.c`](../src/app/serial_commands.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
 
 While held, the clock refreshes its RTC reading and orientation once per second. Releasing the hold preserves the original tap timeout. If it has expired, fade-out starts immediately.
 

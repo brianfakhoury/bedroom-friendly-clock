@@ -11,7 +11,7 @@ A touch-activated bedside clock for a dark and silent bedroom. This project uses
 - Default brightness is 50%.
 - The external RTC keeps time while the processor sleeps.
 
-The display uses Pacific time, including daylight saving time. To use another time zone, change `firmware/app/local_time.c`. Wi-Fi and Bluetooth are disabled. There is no network time service.
+The display uses Pacific time, including daylight saving time. To use another time zone, change `src/app/local_time.c`. Wi-Fi and Bluetooth are disabled. There is no network time service.
 
 ## Install firmware
 
@@ -68,11 +68,11 @@ The panel stays powered with its display off. This reduces display wake delay. T
 
 | Directory | Purpose |
 | --- | --- |
-| `firmware/app` | Clock behavior and USB commands |
-| `firmware/board` | Wiring, supplies, and device startup |
-| `firmware/drivers` | External device control |
-| `firmware/hal` | MCU registers, clocks, buses, and power |
-| `firmware/boot` | Startup, wake entry, and memory layout |
+| `src/app` | Clock behavior and USB commands |
+| `src/board` | Wiring, supplies, and device startup |
+| `src/drivers` | External device control |
+| `src/hal` | MCU registers, clocks, buses, and power |
+| `src/boot` | Startup, wake entry, and memory layout |
 | `tests` | Host tests for time, drawing, orientation, and animation |
 | `docs` | Design, hardware references, and validation limits |
 
@@ -96,4 +96,4 @@ Read the [architecture](docs/architecture.md), [power audit](docs/power-audit.md
 
 ## License
 
-Original project code uses the MIT license. Espressif-derived code retains its [Espressif license](firmware/hal/ESPRESSIF-LICENSE). Vendor documents and reference sources retain their own terms.
+Original project code uses the MIT license. Espressif-derived code retains its [Espressif license](src/hal/ESPRESSIF-LICENSE). Vendor documents and reference sources retain their own terms.

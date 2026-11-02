@@ -19,7 +19,7 @@ Its examples also use SH8601 and CST9217 compatible driver names.
 
 ## Wiring
 
-`firmware/board/board.h` defines the board pins.
+`src/board/board.h` defines the board pins.
 Panel chip select is GPIO15. Touch interrupt is GPIO5. Touch reset is GPIO11.
 The panel uses zero column offset and 480 × 480 geometry.
 Some vendor examples swap panel chip select and touch interrupt. The schematic and

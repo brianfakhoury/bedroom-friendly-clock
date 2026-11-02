@@ -6,7 +6,7 @@ Local vendor snapshots, flash backups, investigation notes, raw logs, and experi
 
 ## Release procedure
 
-1. Update the firmware version in `firmware/app/app.c`.
+1. Update the firmware version in `src/app/app.c`.
 2. Run `make` and `make test`.
 3. Check tap wake, orientation, fades, repeated sleep, and USB maintenance on the board.
 4. Record the result and any limits in the GitHub release notes.
