@@ -14,7 +14,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           python-version: '3.12'
-      - run: ./tools/bootstrap.sh
+      - run: make setup
       - run: make && make test
       - name: Package artifacts
         run: |

@@ -1,6 +1,6 @@
 # Bedroom-friendly clock
 
-A touch-activated bedside clock for a dark and silent bedroom. This project uses a $40 dev kit and bare-metal firmware to make a digital clock that just does what I need.
+A touch-activated bedside clock for a dark and silent bedroom. This project uses a [$40 dev kit](https://www.waveshare.com/esp32-c6-touch-amoled-2.16.htm) and bare-metal firmware to make a digital clock that just does what I need.
 
 ## Operation
 
@@ -78,12 +78,13 @@ The panel stays powered with its display off. This reduces display wake delay. T
 
 ## Build and test
 
-The setup script supports Apple Silicon macOS and x86-64 Linux. It installs a pinned compiler into `.tools`. uv manages Python and the locked dependencies. You also need `make` and a host C compiler.
+`make setup` supports Apple Silicon macOS and x86-64 Linux. It installs a pinned compiler into `.tools`. uv manages Python and the locked dependencies. You also need `make` and a host C compiler.
 
 ```sh
-./tools/bootstrap.sh
+make setup
 make
 make test
+make flash
 ```
 
 GitHub Actions builds and tests each push and pull request. Version tags create releases with the firmware, debug file, memory map, and checksums.
