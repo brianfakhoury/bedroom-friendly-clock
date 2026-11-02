@@ -37,7 +37,7 @@ Run the installer:
 make flash-release
 ```
 
-The installer downloads the latest release and checks its SHA-256 checksum. It selects a connected Espressif USB device or asks you to select one. Confirm installation. After the clock restarts, tap the screen and press KEY once to keep it on. Press Enter in the installer to set the time. Then press KEY again to return to normal operation.
+The installer downloads the latest release and checks its SHA-256 checksum. It selects a connected Espressif USB device or asks you to select one. Confirm installation. After the clock restarts, tap the screen when prompted. The installer sets the time automatically.
 
 The installer sets the RTC from your computer automatically. Use `make flash` to build and install local source after `make setup`. Use `make flash-release RELEASE=v0.11.1` to select a release.
 

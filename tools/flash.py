@@ -87,16 +87,13 @@ def main():
             # esptool checks the chip type and verifies the written flash data.
             subprocess.run([sys.executable, '-m', 'esptool', '--chip', 'esp32c6',
                             '--port', port, '--no-stub', 'write_flash', '0', str(path)], check=True)
-            print('Firmware installed. Tap the screen, then press KEY once to keep it on.', flush=True)
-            if not args.yes:
-                input('When the display stays on, press Enter to set the time. ')
-            print('Connecting to set the time...', flush=True)
+            print('Firmware installed. Tap the screen to set the time.', flush=True)
             try:
                 set_time(port)
             except ValueError as error:
                 print(f'Firmware installed, but time setup failed: {error}', file=sys.stderr)
                 return 1
-            print('Time set. Press KEY again to return to normal operation.')
+            print('Time set.')
         return 0
     except (OSError, URLError, ValueError, KeyError, StopIteration,
             subprocess.CalledProcessError, ImportError, EOFError) as error:
