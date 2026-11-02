@@ -37,11 +37,11 @@ Run the installer:
 make flash-release
 ```
 
-The installer downloads the latest release and checks its SHA-256 checksum. It selects a connected Espressif USB device or asks you to select one. Confirm the device to replace its installed firmware.
+The installer downloads the latest release and checks its SHA-256 checksum. It selects a connected Espressif USB device or asks you to select one. When prompted, hold KEY and confirm installation. Keep KEY held until the installer confirms that the time is set. Release KEY, then press it once to return to normal operation.
 
-After installation, set the time with the instructions below. Use `make flash` to build and install local source after `make setup`. Use `make flash-release RELEASE=v0.11.1` to select a release.
+The installer sets the RTC from your computer automatically. Use `make flash` to build and install local source after `make setup`. Use `make flash-release RELEASE=v0.11.1` to select a release.
 
-## Set the time
+## Adjust the time
 
 Tap the screen, then press KEY to keep the display and USB awake. If the clock has no valid time, it shows dashes. You can also hold KEY while connecting power to start with the display held on.
 
@@ -55,9 +55,7 @@ This command copies your computer's UTC time to the external RTC. Press KEY agai
 
 ## Update an installed clock
 
-For release 0.10.2 and earlier, hold BOOT and KEY together while the display is visible to enable USB.
-
-Tap the screen, then press KEY to keep the display and USB awake. Run `make flash-release`. Press KEY again to return to normal operation.
+Tap the screen, then press KEY to keep the display and USB awake. Run `make flash-release` and follow its KEY instructions.
 
 ## Design
 

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Install a checked release on the Waveshare ESP32-C6-AMOLED-2.16."""
 import argparse
+from datetime import datetime, timezone
+import time
+import serial
 import hashlib
 import json
 from pathlib import Path
@@ -36,6 +39,33 @@ def release_image(release, directory):
     return path
 
 
+def set_time(port, timeout=30):
+    """Wait for the flashed application, then require its RTC-write acknowledgement."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        try:
+            with serial.Serial(port, 115200, timeout=0.2, write_timeout=1) as connection:
+                connection.write(b'STATUS\n')
+                ready_until = min(deadline, time.monotonic() + 1)
+                while time.monotonic() < ready_until:
+                    if connection.readline().startswith(b'CLOCK UTC '):
+                        break
+                else:
+                    continue
+                command = datetime.now(timezone.utc).strftime('TIME %Y%m%d%H%M%S\n')
+                connection.write(command.encode('ascii'))
+                reply_until = min(deadline, time.monotonic() + 2)
+                while time.monotonic() < reply_until:
+                    reply = connection.readline().strip()
+                    if reply == b'OK TIME':
+                        return
+                    if reply == b'ERR TIME':
+                        raise ValueError('The clock could not set its RTC.')
+        except (OSError, serial.SerialException):
+            time.sleep(0.2)
+    raise ValueError('No time-setting acknowledgement received. Tap and press KEY, then run make set-time.')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', help='USB serial port; otherwise detect Espressif devices')
@@ -51,13 +81,21 @@ def main():
             if not path.is_file():
                 raise ValueError(f'Image not found: {path}')
             print(f'Target: {port}\nBoard: Waveshare ESP32-C6-AMOLED-2.16')
-            if not args.yes and input('Replace installed firmware? [y/N] ').lower() != 'y':
+            if not args.yes and input('Hold KEY, then type y to install and set the time. Keep KEY held until done. [y/N] ').lower() != 'y':
                 print('Cancelled.')
                 return 0
+            if args.yes:
+                print('Keep KEY held through restart so the installer can set the time.', flush=True)
             # esptool checks the chip type and verifies the written flash data.
             subprocess.run([sys.executable, '-m', 'esptool', '--chip', 'esp32c6',
                             '--port', port, '--no-stub', 'write_flash', '0', str(path)], check=True)
-            print('Firmware installed. See README.md to keep USB awake and set the time.')
+            print('Firmware installed. Waiting for USB to set the time...', flush=True)
+            try:
+                set_time(port)
+            except ValueError as error:
+                print(f'Firmware installed, but time setup failed: {error}', file=sys.stderr)
+                return 1
+            print('Time set. Release KEY, then press it once to return to normal operation.')
         return 0
     except (OSError, URLError, ValueError, KeyError, StopIteration,
             subprocess.CalledProcessError, ImportError, EOFError) as error:
