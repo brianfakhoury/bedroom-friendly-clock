@@ -98,7 +98,7 @@ Some other board supplies remain on; see the power audit.
 | `firmware/hal` | MCU registers, clocks, buses, and power |
 | `firmware/boot` | Startup, wake entry, and memory layout |
 | `tests` | Host tests for time, drawing, orientation, and animation |
-| `docs` | Design, hardware references, and test history |
+| `docs` | Design, hardware references, and validation limits |
 
 ## Build and test
 
@@ -124,7 +124,7 @@ Automated tests cannot verify electrical behavior or visible wake delay.
 Battery current, battery life, and long-duration reliability remain unmeasured.
 
 Read the [architecture](docs/architecture.md), [power audit](docs/power-audit.md),
-[findings](docs/findings.md), and [hardware references](docs/references/README.md).
+and [hardware references](docs/references/README.md).
 
 ## License
 

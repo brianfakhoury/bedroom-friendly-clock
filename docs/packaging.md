@@ -2,15 +2,14 @@
 
 Original code uses MIT. Espressif-derived code retains its Apache-2.0 notice and license.
 Vendor references are indexed in [references](references/README.md), with source URLs and archived hashes.
-Local vendor snapshots, flash backups, raw logs, and experiments are excluded from Git.
-Historical notes can refer to these local-only files. They are not public release dependencies.
+Local vendor snapshots, flash backups, investigation notes, raw logs, and experiments are excluded from Git.
 
 ## Release procedure
 
 1. Update the firmware version in `firmware/app/main.c`.
 2. Run `make` and `make test`.
 3. Check tap wake, orientation, fades, repeated sleep, and USB maintenance on the board.
-4. Record the result and any limits in `docs/releases/`.
+4. Record the result and any limits in the GitHub release notes.
 5. Commit the changes.
 6. Create and push a matching version tag, such as `v0.10.2`.
 

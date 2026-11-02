@@ -10,7 +10,7 @@ Runtime code, constants and clock state reside in the C6's 16 KiB retained LP SR
 
 Wake restores timers, the USB peripheral clock and touch pin routing. `board_resume()` restores GPIO routes and safe output levels before releasing per-pin holds, then restores software I²C. It does not reset the panel or touch controller. The application reads the RTC, samples orientation and resumes its existing renderer. The LP watchdog pauses during legitimate sleep and protects active work; it cannot detect a permanently lost wake input.
 
-Cold boot enters standby unless KEY is held. While visible, BOOT+KEY enters USB maintenance; SLEEP leaves it. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and maintenance. BOOT/KEY are not supported standby wake inputs. See the [0.10.0 evidence and limits](releases/0.10.0/README.md).
+Cold boot enters standby unless KEY is held. While visible, BOOT+KEY enters USB maintenance; SLEEP leaves it. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and maintenance. BOOT/KEY are not supported standby wake inputs.
 
 ## Read the code in this order
 
@@ -20,7 +20,7 @@ Cold boot enters standby unless KEY is held. While visible, BOOT+KEY enters USB 
 4. [`app/digits.c`](../firmware/app/digits.c) owns the seven-segment shapes and placement. Orientation and ink are explicit arguments. Erasing uses the same geometry with black ink, so rotated images cannot leave old segments behind.
 5. [`drivers/display.c`](../firmware/drivers/display.c) knows rectangles, brightness, display on/off, and panel initialization. It does not know what time is or how digits look. Other drivers own the RTC, touch, accelerometer, and PMIC protocols.
 6. [`hal/time.c`](../firmware/hal/time.c) owns the SYSTIMER and pending-event wait. [`app/board.h`](../firmware/app/board.h) names the board wiring; [`app/board.c`](../firmware/app/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
-7. [`app/service.c`](../firmware/app/service.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG is read-only; exploratory pin toggles and panel-read probes are gone.
+7. [`app/service.c`](../firmware/app/service.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
 
 ## Lifecycle and invariants
 
@@ -44,25 +44,3 @@ No tick runs during standby. During fades, one-shot deadlines are roughly 10 ms 
 The PMU handles regulator handoff, voltage bias, power domains, clock transitions and timing. The standalone implementation deliberately supports one sleep policy. Its nominal RC transition periods are separate from wall time; calibration of these periods and temperature-range testing remain future hardening work. Hardware SPI is also deferred pending evidence that it is needed.
 
 `activate()` has two legitimate callers in the sleep flow: `wake_main()` after an actual reset-wake, and `run()` when `standby_enter()` cancels sleep for a touch already pending during pin handoff. Successful sleep never returns to that call. One physical wake event is marked consumed before the event loop accepts another touch.
-
-## Historical refactor verification
-
-Version 0.5 preserves the user-confirmed rendering, four orientations, fades, and three-second interval. The user visually confirmed the refactored build behaves the same. Host tests cover RTC/DST behavior, animation, orientation transforms, and presentation transitions including sensor failures. On the connected board, fragmented and batched USB commands pass; 60 status queries during one active interval did not extend the approximately 3.000-second shutoff.
-
-The linked code/constants decreased from 8818 to 8396 bytes (about 5%). Presentation state now lives in `main`'s stack frame; the decrease in static data is not equivalent to a reduction in total RAM use. Stack high-water usage and power remain unmeasured.
-
-## Power changes after the refactor
-
-Version 0.6 explicitly disables the radio power domain, shuts down audio codec/ADC functions, turns off unused adjustable PMIC outputs, and gates unused peripheral clocks. See [power-audit.md](power-audit.md) for exact readbacks, limits, and the failed RAM-only PMU sleep experiment. At that historical milestone the shipping wait path remained WFI. USB-only cold power loss was tested and requires setting time again.
-
-## Version 0.7 power hardening
-
-Panel sleep belongs to the display driver; the app still owns only activation and fade deadlines. The HAL owns explicit unused-clock gating and an LP watchdog armed during active work, disarmed around legitimate WFI. This avoids periodic watchdog-feed wakeups but deliberately does not detect an indefinitely lost wake source. The watchdog is hardware in the LP subsystem, not an LP-core program. See [findings.md](findings.md) and [power-audit.md](power-audit.md).
-
-## Version 0.8: faster response on USB
-
-At the user’s request, remove the panel sleep state, transition deadline, and sleep/wake calls. Display-off still makes standby black. All other power controls and the active-work watchdog remain unchanged. Version 0.7’s panel sleep work is historical; reconsider it with battery-input measurements if a battery is added.
-
-## Sleep investigation after version 0.8
-
-The HP CPU can perform a conservative PMU sleep/wake cycle bare-metal. A RAM-only probe demonstrated 100 timer cycles and prompt latched-edge touch wake using LP GPIO hardware without executing LP firmware. See [sleep-investigation/README.md](sleep-investigation/README.md). Those earlier experiments are historical. Version 0.9 used CPU-off/TOP-retained standby; version 0.10 adds the separately qualified TOP-off path above. Current remains unmeasured.
