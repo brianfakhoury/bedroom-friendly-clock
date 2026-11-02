@@ -11,7 +11,7 @@ Local vendor snapshots, flash backups, investigation notes, raw logs, and experi
 3. Check tap wake, orientation, fades, repeated sleep, and USB maintenance on the board.
 4. Record the result and any limits in the GitHub release notes.
 5. Commit the changes.
-6. Create and push a matching version tag, such as `v0.11.0`.
+6. Create and push a matching version tag, such as `v0.11.1`.
 
 GitHub Actions builds from that tag on Linux. It publishes `clock.bin`, `clock.elf`,
 `clock.map`, `SOURCE_COMMIT`, `TOOLCHAIN.txt`, and `SHA256SUMS` only after tests pass.
@@ -25,5 +25,7 @@ and state; this is intentional for this memory layout, not a hosted executable p
 
 Version 0.11.0 passed physical checks for KEY hold and release, followed by USB status,
 time setting, and the sleep command. Firmware flash verification and host tests passed.
+Version 0.11.1 also passed a physical check that releasing an expired hold starts a smooth fade immediately.
+Host tests cover both early release and expired release, including RTC refresh without timeout changes.
 Host CI does not replace physical checks.
 Current, battery lifetime, optical wake latency, and multi-day reliability remain unmeasured.

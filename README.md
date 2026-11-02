@@ -47,7 +47,7 @@ Confirm the device to replace its installed firmware.
 
 After installation, set the time with the instructions below.
 Use `--file build/clock.bin` to install a local build.
-Use `--release v0.11.0` to select a release.
+Use `--release v0.11.1` to select a release.
 
 ## Set the time
 
