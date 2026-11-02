@@ -52,6 +52,7 @@ def set_time(port, timeout=30):
                         break
                 else:
                     continue
+                print('Clock is awake. You can release KEY now.', flush=True)
                 command = datetime.now(timezone.utc).strftime('TIME %Y%m%d%H%M%S\n')
                 connection.write(command.encode('ascii'))
                 reply_until = min(deadline, time.monotonic() + 2)
@@ -81,7 +82,7 @@ def main():
             if not path.is_file():
                 raise ValueError(f'Image not found: {path}')
             print(f'Target: {port}\nBoard: Waveshare ESP32-C6-AMOLED-2.16')
-            if not args.yes and input('Hold KEY, then type y to install and set the time. Keep KEY held until done. [y/N] ').lower() != 'y':
+            if not args.yes and input('Hold KEY while the clock restarts, then release it when prompted. Install? [y/N] ').lower() != 'y':
                 print('Cancelled.')
                 return 0
             if args.yes:
@@ -95,7 +96,7 @@ def main():
             except ValueError as error:
                 print(f'Firmware installed, but time setup failed: {error}', file=sys.stderr)
                 return 1
-            print('Time set. Release KEY, then press it once to return to normal operation.')
+            print('Time set. Press KEY again to return to normal operation.')
         return 0
     except (OSError, URLError, ValueError, KeyError, StopIteration,
             subprocess.CalledProcessError, ImportError, EOFError) as error:
