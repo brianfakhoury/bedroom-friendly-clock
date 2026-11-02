@@ -52,7 +52,6 @@ def set_time(port, timeout=30):
                         break
                 else:
                     continue
-                print('Clock is awake. You can release KEY now.', flush=True)
                 command = datetime.now(timezone.utc).strftime('TIME %Y%m%d%H%M%S\n')
                 connection.write(command.encode('ascii'))
                 reply_until = min(deadline, time.monotonic() + 2)
@@ -82,15 +81,16 @@ def main():
             if not path.is_file():
                 raise ValueError(f'Image not found: {path}')
             print(f'Target: {port}\nBoard: Waveshare ESP32-C6-AMOLED-2.16')
-            if not args.yes and input('Hold KEY while the clock restarts, then release it when prompted. Install? [y/N] ').lower() != 'y':
+            if not args.yes and input('Replace installed firmware? [y/N] ').lower() != 'y':
                 print('Cancelled.')
                 return 0
-            if args.yes:
-                print('Keep KEY held through restart so the installer can set the time.', flush=True)
             # esptool checks the chip type and verifies the written flash data.
             subprocess.run([sys.executable, '-m', 'esptool', '--chip', 'esp32c6',
                             '--port', port, '--no-stub', 'write_flash', '0', str(path)], check=True)
-            print('Firmware installed. Waiting for USB to set the time...', flush=True)
+            print('Firmware installed. Tap the screen, then press KEY once to keep it on.', flush=True)
+            if not args.yes:
+                input('When the display stays on, press Enter to set the time. ')
+            print('Connecting to set the time...', flush=True)
             try:
                 set_time(port)
             except ValueError as error:
