@@ -47,7 +47,7 @@ Confirm the device to replace its installed firmware.
 
 After installation, set the time with the instructions below.
 Use `--file build/clock.bin` to install a local build.
-Use `--release v0.10.2` to select a release.
+Use `--release v0.11.0` to select a release.
 
 ## Set the time
 
@@ -72,8 +72,7 @@ Dashes indicate that the clock cannot read valid time.
 
 ## Update an installed clock
 
-KEY toggling is available in the source build for 0.11.0.
-For release 0.10.2 and earlier, hold BOOT and KEY together while the display is visible instead.
+For release 0.10.2 and earlier, hold BOOT and KEY together while the display is visible to enable USB.
 
 Tap the screen, then press KEY to keep the display and USB awake.
 Run `uv run tools/flash.py`.
