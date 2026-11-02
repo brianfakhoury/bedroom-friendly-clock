@@ -16,6 +16,7 @@ jobs:
           python-version: '3.12'
       - run: make setup
       - run: make && make test
+      - run: make emulator-check
       - name: Package artifacts
         run: |
           git rev-parse HEAD > build/SOURCE_COMMIT

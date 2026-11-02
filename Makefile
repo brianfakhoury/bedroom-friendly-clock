@@ -63,3 +63,17 @@ test:
 	build/test-accel
 
 .PHONY: test
+
+# Executes the firmware ELF with modeled GPIO-connected board devices.
+emulate: build/clock.elf
+	uv run --locked --group sim python sim/virtual_board.py
+
+emulator-check: build/clock.elf
+	uv run --locked --group sim python -m unittest discover -s sim -p 'test_*.py'
+	uv run --locked --group sim python sim/virtual_board.py --check
+
+# Separate stock Espressif emulator smoke test (no external board devices).
+emulator-soc-check: all
+	$(PYTHON) sim/emulate.py --check
+
+.PHONY: emulate emulator-check emulator-soc-check

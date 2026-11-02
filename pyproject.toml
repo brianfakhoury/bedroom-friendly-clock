@@ -6,3 +6,9 @@ dependencies = ["esptool==4.12.0", "pyserial==3.5"]
 
 [tool.uv]
 package = false
+
+[dependency-groups]
+sim = [
+    "pyelftools==0.32",
+    "unicorn==2.1.4",
+]

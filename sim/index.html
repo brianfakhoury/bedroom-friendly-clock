@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clock / Workbench</title>
+    <link rel="stylesheet" href="/ui.css" />
+  </head>
+  <body>
+    <div class="workspace">
+      <header>
+        <h1>Clock <span>/</span> Workbench</h1>
+        <div id="connection" class="status">
+          <i></i><span id="status">Connecting</span>
+        </div>
+      </header>
+      <div id="error" role="alert" hidden></div>
+      <main>
+        <section class="shell board-shell">
+          <div class="surface board-surface">
+            <div class="section-heading">
+              <h2>Board</h2>
+              <div class="supply-controls" role="group" aria-label="5V supply">
+                <span>5V</span
+                ><button id="supply-on" title="Connect 5V and cold boot">
+                  ON</button
+                ><button id="supply-off" title="Remove 5V; no battery modeled">
+                  OFF
+                </button>
+              </div>
+            </div>
+            <div class="device">
+              <div class="screen">
+                <img
+                  id="display"
+                  src="/frame"
+                  alt="Clock display. Press to touch."
+                  draggable="false"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Touch clock display"
+                />
+              </div>
+            </div>
+            <div class="board-caption">
+              <span id="wake-hint">Touch the display to wake</span
+              ><span id="hold-state" class="badge">Display hold off</span>
+            </div>
+            <div
+              class="physical-buttons"
+              role="group"
+              aria-label="Board buttons"
+            >
+              <button
+                id="key"
+                title="Press KEY to toggle display hold while awake"
+              >
+                KEY
+              </button>
+              <button
+                id="boot"
+                aria-pressed="false"
+                title="GPIO9. Click to hold; click again to release. Holding at power-on requests ROM download (not modeled)."
+              >
+                BOOT <span id="boot-state">up</span>
+              </button>
+              <button
+                id="pwr"
+                aria-pressed="false"
+                title="Prototype: hold for 4 seconds to power off. Release, then press to cold boot."
+              >
+                PWR <span id="pwr-state">up</span>
+              </button>
+            </div>
+            <div class="orientation-control">
+              <label for="orientation">Orientation</label
+              ><select id="orientation">
+                <option value="0">0°</option>
+                <option value="1">90°</option>
+                <option value="2">180°</option>
+                <option value="3">270°</option>
+              </select>
+            </div>
+            <div class="telemetry">
+              <div>
+                <span>BRIGHTNESS</span><strong id="brightness">—</strong>
+              </div>
+              <div>
+                <span>I²C TRANSACTIONS</span
+                ><strong id="transactions">—</strong>
+              </div>
+              <div>
+                <span>PIXELS WRITTEN</span><strong id="pixels">—</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="shell">
+          <div class="surface chip-surface">
+            <div class="section-heading">
+              <h2>ESP32-C6</h2>
+              <span id="power-mode" class="badge">Initializing</span>
+            </div>
+
+            <div
+              id="chip"
+              class="chip-domains"
+              aria-label="ESP32-C6 functional groups"
+            >
+              <section class="domain">
+                <h3>High-power system</h3>
+                <div class="node" id="hp">
+                  <b>HP RISC-V core</b><span class="node-state">—</span>
+                </div>
+                <div class="node" id="hp-ram">
+                  <b>SRAM · 512 KiB</b><span class="node-state">—</span>
+                </div>
+                <div class="module">
+                  <b>GPIO</b><span>Pin edges · partial</span>
+                </div>
+                <div class="module">
+                  <b>USB Serial/JTAG</b><span id="usb-module">FIFO only</span>
+                </div>
+                <div class="module">
+                  <b>SYSTIMER</b><span>Counter + waits · partial</span>
+                </div>
+                <div class="module config">
+                  <b>Interrupt matrix / PLIC</b
+                  ><span>Config only · WFI handled directly</span>
+                </div>
+                <details class="coverage">
+                  <summary>Unmodeled <span>+</span></summary>
+                  <div class="module absent">
+                    <b>ROM / flash / cache</b
+                    ><span
+                      >320 KiB ROM, SPI0/1, 32 KiB cache · ELF loaded
+                      directly</span
+                    >
+                  </div>
+                  <div class="module absent">
+                    <b>Peripheral controllers</b
+                    ><span>UART0/1, I²C, SPI2, I²S, TWAI0/1, SDIO, GDMA</span>
+                  </div>
+                  <div class="module absent">
+                    <b>Timing & waveform</b
+                    ><span
+                      >Timer groups, LEDC, MCPWM, RMT, PCNT, PARLIO, ETM</span
+                    >
+                  </div>
+                </details>
+              </section>
+              <section class="domain">
+                <h3>Low-power system</h3>
+                <div class="node" id="lp">
+                  <b>LP RISC-V core</b
+                  ><span class="node-state">Not executed</span>
+                </div>
+                <div class="node" id="ram">
+                  <b>SRAM · 16 KiB</b><span class="node-state">—</span>
+                </div>
+                <div class="node" id="touch-node">
+                  <b>LP GPIO / wake</b><span class="node-state">—</span>
+                </div>
+                <div class="module config">
+                  <b>LP timer</b><span>Wake timer registers only</span>
+                </div>
+                <div class="module config">
+                  <b>LP watchdog</b><span>Config only · no expiry</span>
+                </div>
+                <details class="coverage">
+                  <summary>Unmodeled <span>+</span></summary>
+                  <div class="module absent">
+                    <b>LP peripherals</b><span>LP UART and LP I²C</span>
+                  </div>
+                </details>
+              </section>
+            </div>
+            <section class="system-controls">
+              <h3>Power & system control</h3>
+              <div class="power-grid">
+                <div class="node policy" id="top">
+                  <b>HP TOP</b><span class="node-state">—</span>
+                </div>
+                <div class="node policy" id="aon">
+                  <b>HP AON</b><span class="node-state">—</span>
+                </div>
+                <div class="node policy" id="radio">
+                  <b>Radio power</b><span class="node-state">—</span>
+                </div>
+              </div>
+              <div class="module-grid">
+                <div class="module config">
+                  <b>PMU / clock & reset</b><span>Sleep handoff + config</span>
+                </div>
+                <div class="module config">
+                  <b>IO mux / pad holds</b
+                  ><span>Config only · not enforced</span>
+                </div>
+                <div class="module">
+                  <b>ROM wake ABI</b
+                  ><span>Two calls modeled · CRC omitted</span>
+                </div>
+                <div class="module config">
+                  <b>eFuse / analog I²C</b
+                  ><span>Calibration stubbed; busy clears</span>
+                </div>
+              </div>
+              <details class="coverage">
+                <summary>Unmodeled <span>+</span></summary>
+                <div class="module-grid">
+                  <div class="module absent">
+                    <b>Analog & radio</b
+                    ><span
+                      >ADC, temperature sensor, Wi-Fi, BLE, 802.15.4/RF</span
+                    >
+                  </div>
+                  <div class="module absent">
+                    <b>Security & system</b
+                    ><span>Crypto, RNG, APM/TEE and debug hardware</span>
+                  </div>
+                </div>
+              </details>
+            </section>
+            <div class="legend">
+              <span><i class="green"></i>Active / available</span
+              ><span><i class="amber"></i>Waiting</span
+              ><span><i class="gray"></i>Inactive / unmodeled</span>
+            </div>
+            <p class="hint">
+              Functional groups, not a die layout. Dashed blocks show power
+              requests; clock gates are not enforced.
+              <a
+                href="https://documentation.espressif.com/esp32-c6_datasheet_en.html"
+                target="_blank"
+                rel="noreferrer"
+                >Silicon reference ↗</a
+              >
+            </p>
+            <div class="chip-meta">
+              <span>PROGRAM COUNTER <b id="pc">—</b></span
+              ><span>ELAPSED <b id="elapsed">—</b></span>
+            </div>
+            <details>
+              <summary>Registers & clock configuration <span>+</span></summary>
+              <div id="inspection"></div>
+            </details>
+          </div>
+        </section>
+        <section class="shell console-shell">
+          <div class="surface">
+            <div class="section-heading">
+              <h2>USB console</h2>
+              <span class="caption">AWAKE ONLY</span>
+            </div>
+            <pre id="console" aria-label="Firmware serial output">
+Waiting for firmware…</pre
+            >
+            <form id="command-form" class="command-editor">
+              <label class="sr-only" for="command">USB command</label>
+              <div class="command-field">
+                <span class="prompt" aria-hidden="true">›</span
+                ><input
+                  id="command"
+                  name="command"
+                  placeholder="Type a command…"
+                  maxlength="47"
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="characters"
+                  aria-describedby="command-feedback"
+                /><button
+                  id="send-command"
+                  type="submit"
+                  disabled
+                  aria-label="Send command"
+                >
+                  Send <kbd>↵</kbd>
+                </button>
+              </div>
+            </form>
+            <div class="command-meta">
+              <span id="command-feedback" role="status">Wake board to send</span
+              ><span><kbd>↑↓</kbd> history · <kbd>Tab</kbd> complete</span>
+            </div>
+            <details>
+              <summary>Command reference <span>+</span></summary>
+              <div class="command-list">
+                <div>
+                  <code>STATUS</code>
+                  <p>
+                    UTC, display state, activations, drawing time and rotation.
+                  </p>
+                </div>
+                <div>
+                  <code>SHOW</code>
+                  <p>Activate or retrigger the display.</p>
+                </div>
+                <div>
+                  <code>DIM 1…255</code>
+                  <p>Set brightness. Example: DIM 128.</p>
+                </div>
+                <div>
+                  <code>TIME YYYYMMDDhhmmss</code>
+                  <p>Set UTC, years 2020–2099. Example: TIME 20261102120000.</p>
+                </div>
+                <div>
+                  <code>ACCEL</code>
+                  <p>Sample X/Y/Z acceleration; hexadecimal output.</p>
+                </div>
+                <div>
+                  <code>POWER</code>
+                  <p>Power, clock, PMIC, audio and IMU diagnostics.</p>
+                </div>
+                <div>
+                  <code>DIAG</code>
+                  <p>Read-only status; currently identical to STATUS.</p>
+                </div>
+              </div>
+              <p class="hint">Case-sensitive · newline added automatically.</p>
+            </details>
+            <details>
+              <summary>Disconnect devices <span>+</span></summary>
+              <div class="faults">
+                <label><input type="checkbox" data-address="81" /> RTC</label
+                ><label
+                  ><input type="checkbox" data-address="107" />
+                  Accelerometer</label
+                ><label
+                  ><input type="checkbox" data-address="90" /> Touch
+                  controller</label
+                >
+              </div>
+            </details>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/ui.js"></script>
+  </body>
+</html>

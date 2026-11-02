@@ -86,6 +86,14 @@ make flash
 
 GitHub Actions builds and tests each push and pull request. Version tags create releases with the firmware, debug file, memory map, and checksums.
 
+## Virtual board
+
+Run `make emulate` and open http://127.0.0.1:8080 to develop against the actual
+firmware ELF with a virtual display, touch, KEY, rotation and USB commands.
+`make emulator-check` runs automated board scenarios. See [sim/README.md](sim/README.md)
+for setup, the modeled peripherals and the prototype's hardware-fidelity limits.
+
+
 ## Validation and limits
 
 Touch wake, rotation, fades, and repeated deep sleep have passed device checks. Host tests check time conversion, animation, orientation, and pixel rendering. Automated tests cannot verify electrical behavior or visible wake delay. Battery current, battery life, and long-duration reliability remain unmeasured.
