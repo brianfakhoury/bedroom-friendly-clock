@@ -6,7 +6,7 @@ def select_port(requested):
         return requested
     ports = [p for p in comports() if p.vid == 0x303A]
     if not ports:
-        raise ValueError('No Espressif USB device found. Enter maintenance mode, or use --port PORT.')
+        raise ValueError('No Espressif USB device found. Connect the USB cable, tap the screen, and press KEY once to keep it on. For first installation, hold BOOT while connecting power.')
     if len(ports) == 1:
         return ports[0].device
     for i, port in enumerate(ports, 1):

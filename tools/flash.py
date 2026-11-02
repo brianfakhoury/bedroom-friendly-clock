@@ -101,7 +101,7 @@ def main():
     except (OSError, URLError, ValueError, KeyError, StopIteration,
             subprocess.CalledProcessError, ImportError, EOFError) as error:
         print(f'Install failed: {error}', file=sys.stderr)
-        print('Check the cable and maintenance mode. See README.md for recovery.', file=sys.stderr)
+        print('See README.md for connection and download-mode instructions.', file=sys.stderr)
         return 1
 
 
