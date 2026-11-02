@@ -20,14 +20,6 @@ static void activate(void) {
     usb_puts(valid ? "ON\n" : "ON RTC_INVALID\n");
 }
 
-// Keep USB work outside the normal wake-to-display path.
-static void poll_usb(void) {
-  if (serial_commands_poll(&clock))
-    activate();
-  if (serial_commands_take_sleep_request())
-    clock_hold(&clock, false);
-}
-
 static void handle_input(unsigned events, bool *touch_down,
                          uint64_t *last_button) {
   bool down;
@@ -55,7 +47,8 @@ static _Noreturn void run(void) {
   uint64_t last_button = 0;
   for (;;) {
     watchdog_feed();
-    poll_usb();
+    if (serial_commands_poll(&clock))
+      activate();
     clock_update(&clock);
     if (!clock.visible) {
       clock_hold(&clock, false);

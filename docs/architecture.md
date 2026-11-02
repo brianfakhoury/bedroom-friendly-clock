@@ -10,7 +10,7 @@ Runtime code, constants and clock state reside in the C6's 16 KiB retained LP SR
 
 Wake restores timers, the USB peripheral clock and touch pin routing. `board_resume()` restores GPIO routes and safe output levels before releasing per-pin holds, then restores software I²C. It does not reset the panel or touch controller. The application reads the RTC, samples orientation and resumes its existing renderer. The LP watchdog pauses during legitimate sleep and protects active work; it cannot detect a permanently lost wake input.
 
-Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the display and USB awake. KEY toggles a display hold while awake; SLEEP also releases the hold. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and display hold. BOOT/KEY are not supported standby wake inputs.
+Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the display and USB awake. KEY toggles a display hold while awake. USB disconnects in standby and reconnects on wake. WFI remains the wait mechanism during animation and display hold. BOOT/KEY are not supported standby wake inputs.
 
 ## Read the code in this order
 

@@ -4,14 +4,6 @@
 #include "local_time.h"
 #include "power.h"
 #include "rtc.h"
-#define USB_REPLY_GRACE_US 20000u
-
-static bool sleep_request;
-bool serial_commands_take_sleep_request(void) {
-  bool r = sleep_request;
-  sleep_request = false;
-  return r;
-}
 static char line[48];
 static unsigned used;
 static bool overflow;
@@ -53,13 +45,6 @@ static bool parse_time(const char *p, datetime *d) {
   return date_valid(d);
 }
 static bool command(clock_state *clock) {
-  if (equal(line, "SLEEP")) {
-    usb_puts("OK SLEEP\n");
-    // Give the reply time to leave before the application can power down USB.
-    delay_us(USB_REPLY_GRACE_US);
-    sleep_request = true;
-    return false;
-  }
   if (equal(line, "POWER")) {
     uint32_t values[POWER_REGISTER_COUNT];
     power_read(values);
