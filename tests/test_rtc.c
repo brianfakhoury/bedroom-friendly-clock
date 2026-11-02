@@ -1,4 +1,5 @@
 #include "rtc.h"
+#include "hal.h"
 #include "local_time.h"
 #include <assert.h>
 #include <stdio.h>

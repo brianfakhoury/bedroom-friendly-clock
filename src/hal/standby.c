@@ -1,7 +1,8 @@
 #include "standby.h"
-#include "board.h"
+#include "pins.h"
 #include "hal.h"
 #include "power.h"
+#include "registers.h"
 #include "standby_regs.h"
 #include "watchdog.h"
 extern void wake_entry(void);

@@ -1,4 +1,5 @@
 #include "hal.h"
+#include "registers.h"
 void gpio_init(unsigned p, bool output, bool pullup) {
   REG(IOMUX_GPIO0 + p * 4) =
       BIT(12) | BIT(9) | (pullup ? BIT(8) : 0) | (2u << 10);

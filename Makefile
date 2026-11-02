@@ -10,6 +10,8 @@ CFLAGS := -march=rv32imac_zicsr_zifencei -mabi=ilp32 -mno-relax -flto -Os -g \
           -ffunction-sections -fdata-sections $(WARNINGS) $(INCLUDES)
 HOST_CC ?= cc
 HOST_CFLAGS := -std=c11 $(WARNINGS) $(INCLUDES)
+# Retained LP RAM intentionally holds both executable code and mutable state.
+LDFLAGS := -nostdlib -Wl,--gc-sections,--no-warn-rwx-segments,-Map=build/clock.map -Tsrc/boot/link.ld
 SOURCES := $(wildcard src/hal/*.c src/drivers/*.c src/app/*.c src/board/*.c) src/boot/start.S src/boot/wake.S
 
 all: build/clock.bin
@@ -20,7 +22,7 @@ setup:
 build/clock.elf: Makefile $(SOURCES) $(wildcard src/hal/*.h src/drivers/*.h src/app/*.h src/board/*.h) src/boot/link.ld
 	@command -v $(CROSS)gcc >/dev/null || { echo "Compiler not found. Run make setup." >&2; exit 1; }
 	mkdir -p build
-	$(CROSS)gcc $(CFLAGS) -nostdlib -Wl,--gc-sections,-Map=build/clock.map -Tsrc/boot/link.ld $(SOURCES) -lgcc -o $@
+	$(CROSS)gcc $(CFLAGS) $(LDFLAGS) $(SOURCES) -lgcc -o $@
 	$(CROSS)size $@
 
 build/clock.bin: build/clock.elf
@@ -57,5 +59,7 @@ test:
 	build/test-clock
 	$(HOST_CC) $(HOST_CFLAGS) tests/test_digits.c src/app/digits.c src/app/orientation.c -o build/test-digits
 	build/test-digits
+	$(HOST_CC) $(HOST_CFLAGS) tests/test_accel.c src/drivers/accel.c -o build/test-accel
+	build/test-accel
 
 .PHONY: test

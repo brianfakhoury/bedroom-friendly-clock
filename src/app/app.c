@@ -66,7 +66,7 @@ static _Noreturn void run(void) {
 
 // Cold startup reads KEY once; its release must not toggle the hold.
 _Noreturn void app_start(void) {
-  clock.held = !gpio_get(BUTTON_KEY);
+  clock.held = board_key_pressed();
   if (clock.held)
     activate();
   usb_puts("READY BEDSIDE CLOCK 0.11.1\n");

@@ -1,4 +1,5 @@
 #include "rtc.h"
+#include "hal.h"
 static unsigned mdays(unsigned y, unsigned m) {
   static const uint8_t days[] = {31, 28, 31, 30, 31, 30,
                                  31, 31, 30, 31, 30, 31};

@@ -1,4 +1,5 @@
 #include "pmic.h"
+#include "hal.h"
 // AXP2101 on the 2.16 board. ALDO3 is wired to LCD_RESET, not VCI.
 bool pmic_panel_reset(void) {
   uint8_t v;
@@ -56,4 +57,13 @@ bool pmic_unused_rails_off(void) {
       good = false;
   }
   return good;
+}
+
+void pmic_diagnostics(uint32_t values[PMIC_DIAGNOSTIC_COUNT]) {
+  const uint8_t regs[] = {0x00, 0x01, 0x80, 0x90, 0x91,
+                          0x92, 0x93, 0x94, 0x95, 0x10};
+  for (unsigned i = 0; i < PMIC_DIAGNOSTIC_COUNT; i++) {
+    uint8_t value;
+    values[i] = i2c_read(0x34, regs[i], &value, 1) ? value : UINT32_MAX;
+  }
 }

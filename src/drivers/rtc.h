@@ -1,5 +1,5 @@
 #pragma once
-#include "hal.h"
+#include <stdbool.h>
 typedef struct {
   unsigned year, month, day, hour, minute, second;
 } datetime;

@@ -1,6 +1,8 @@
 #include "display.h"
-#include "board.h"
+#include "pins.h"
+#include "hal.h"
 #include "pmic.h"
+#include "registers.h"
 enum {
   DISPLAY_OFF = 0x28,
   DISPLAY_ON = 0x29,

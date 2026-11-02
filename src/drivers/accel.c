@@ -27,8 +27,11 @@ static bool standby(void) {
 bool accel_init(void) {
   uint8_t id;
   for (address = 0x6a; address <= 0x6b; address++)
-    if (i2c_read(address, WHO_AM_I, &id, 1) && id == DEVICE_ID)
-      return standby();
+    if (i2c_read(address, WHO_AM_I, &id, 1) && id == DEVICE_ID) {
+      if (standby())
+        return true;
+      break;
+    }
   address = 0;
   return false;
 }
@@ -59,4 +62,12 @@ bool accel_read(int16_t xyz[3]) {
   for (unsigned axis = 0; axis < 3; axis++)
     xyz[axis] = sums[axis] / 4;
   return true;
+}
+
+void accel_diagnostics(uint32_t values[ACCEL_DIAGNOSTIC_COUNT]) {
+  const uint8_t regs[] = {2, 8};
+  for (unsigned i = 0; i < ACCEL_DIAGNOSTIC_COUNT; i++) {
+    uint8_t value;
+    values[i] = address && i2c_read(address, regs[i], &value, 1) ? value : UINT32_MAX;
+  }
 }

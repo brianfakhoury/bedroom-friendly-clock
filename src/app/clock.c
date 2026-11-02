@@ -3,9 +3,10 @@
 #include "animation.h"
 #include "digits.h"
 #include "display.h"
-#include "hal.h"
 #include "local_time.h"
 #include "orientation.h"
+#include "rtc.h"
+#include "timer.h"
 
 static bool prepare_frame(clock_state *clock, bool activation) {
   uint64_t start = ticks();

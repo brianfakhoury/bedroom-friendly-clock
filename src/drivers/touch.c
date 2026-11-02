@@ -1,5 +1,6 @@
 #include "touch.h"
-#include "board.h"
+#include "pins.h"
+#include "hal.h"
 // CST9217, 16-bit register addresses. Report layout follows Waveshare's driver.
 bool touch_read(bool *down) {
   uint8_t data[10];

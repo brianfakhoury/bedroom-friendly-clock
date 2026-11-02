@@ -18,8 +18,9 @@ GitHub Actions builds from that tag on Linux. It publishes `clock.bin`, `clock.e
 The installer downloads release assets and verifies the firmware checksum before flashing.
 Checksums detect corruption; they are not an independent signature of the release publisher.
 
-The bare-metal linker can report an RWX LOAD segment. Retained RAM contains both code
-and state; this is intentional for this memory layout, not a hosted executable permission policy.
+Retained RAM intentionally contains both code and mutable state in an RWX LOAD
+segment. The build suppresses the linker's RWX-segment warning for this layout;
+ELF segment flags do not establish a hardware memory-protection policy.
 
 ## Remaining hardware qualification
 

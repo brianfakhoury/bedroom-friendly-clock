@@ -1,4 +1,7 @@
 #pragma once
+#include <stdint.h>
+#define REG(a) (*(volatile uint32_t *)(uintptr_t)(a))
+#define BIT(n) (1u << (n))
 // ESP32-C6 register addresses checked against Espressif ESP-IDF v5.4.2 register
 // headers. No ESP-IDF source or runtime is linked.
 #define GPIO_OUT_SET 0x60091008u

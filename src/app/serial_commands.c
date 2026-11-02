@@ -1,7 +1,9 @@
 #include "serial_commands.h"
 #include "accel.h"
+#include "audio.h"
 #include "hal.h"
 #include "local_time.h"
+#include "pmic.h"
 #include "power.h"
 #include "rtc.h"
 static char line[48];
@@ -56,25 +58,20 @@ static bool command(clock_state *clock) {
     usb_puts("\nUNUSED_FUNCTION_CLOCKS_HEX ");
     usb_hex(unused_function_clocks_enabled());
     usb_puts("\nPMIC_HEX ");
-    const uint8_t regs[] = {0x00, 0x01, 0x80, 0x90, 0x91,
-                            0x92, 0x93, 0x94, 0x95, 0x10};
-    for (unsigned i = 0; i < sizeof(regs); i++) {
-      uint8_t v;
-      usb_hex(i2c_read(0x34, regs[i], &v, 1) ? v : 0xffffffffu);
-    }
+    uint32_t pmic[PMIC_DIAGNOSTIC_COUNT];
+    pmic_diagnostics(pmic);
+    for (unsigned i = 0; i < PMIC_DIAGNOSTIC_COUNT; i++)
+      usb_hex(pmic[i]);
     usb_puts("\nAUDIO_HEX ");
-    const uint8_t address[] = {0x18, 0x18, 0x40, 0x40};
-    const uint8_t audio_regs[] = {0x0d, 0x01, 0x06, 0x01};
-    for (unsigned i = 0; i < sizeof(address); i++) {
-      uint8_t v;
-      usb_hex(i2c_read(address[i], audio_regs[i], &v, 1) ? v : 0xffffffffu);
-    }
+    uint32_t audio[AUDIO_DIAGNOSTIC_COUNT];
+    audio_diagnostics(audio);
+    for (unsigned i = 0; i < AUDIO_DIAGNOSTIC_COUNT; i++)
+      usb_hex(audio[i]);
     usb_puts("\nIMU_HEX ");
-    const uint8_t imu_regs[] = {2, 8};
-    for (unsigned i = 0; i < sizeof(imu_regs); i++) {
-      uint8_t v;
-      usb_hex(i2c_read(0x6b, imu_regs[i], &v, 1) ? v : 0xffffffffu);
-    }
+    uint32_t accel[ACCEL_DIAGNOSTIC_COUNT];
+    accel_diagnostics(accel);
+    for (unsigned i = 0; i < ACCEL_DIAGNOSTIC_COUNT; i++)
+      usb_hex(accel[i]);
     usb_puts("\n");
   } else if (equal(line, "ACCEL")) {
     int16_t xyz[3];

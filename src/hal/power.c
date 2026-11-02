@@ -1,21 +1,6 @@
-#include "hal.h"
-void watchdogs_disable(void) {
-  // ROM flash boot enables TIMG0 watchdog; RAM loading does not always do so.
-  for (unsigned i = 0; i < 2; i++) {
-    uint32_t base = TIMG0_BASE + i * 0x1000;
-    REG(base + 0x64) = 0x50d83aa1;
-    REG(base + 0x48) = 0;
-    REG(base + 0x64) = 0;
-  }
-  REG(LP_WDT_PROTECT) = 0x50d83aa1;
-  REG(LP_WDT_CONFIG) = 0;
-  REG(LP_WDT_PROTECT) = 0;
-  REG(LP_SWD_PROTECT) = 0x50d83aa1;
-  REG(LP_SWD_CONFIG) |= BIT(30);
-  REG(LP_SWD_PROTECT) = 0;
-}
-
 #include "power.h"
+#include "hal.h"
+#include "registers.h"
 void power_read(uint32_t values[POWER_REGISTER_COUNT]) {
   const uint32_t addresses[] = {
       PMU_RADIO_POWER,     MODEM_CLOCKS, MODEM_CLOCKS_FORCE, MODEM_CLOCKS1,

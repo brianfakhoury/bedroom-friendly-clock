@@ -7,6 +7,9 @@
  */
 #include "hal.h"
 #include "pmu_registers.h"
+#include "registers.h"
+#include "standby.h"
+#include "watchdog.h"
 #define COLD __attribute__((section(".init.pmu"), noinline))
 #define PMU_HW (*(volatile pmu_dev_t *)0x600b0000u)
 enum { ACTIVE, MODEM, SLEEP };

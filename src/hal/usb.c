@@ -1,4 +1,5 @@
 #include "hal.h"
+#include "registers.h"
 void usb_puts(const char *s) {
   while (*s) {
     // A full uncommitted packet cannot drain, even after the host reconnects.

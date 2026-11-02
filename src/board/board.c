@@ -3,8 +3,10 @@
 #include "audio.h"
 #include "display.h"
 #include "hal.h"
+#include "pins.h"
 #include "pmic.h"
 #include "power.h"
+#include "registers.h"
 #include "standby.h"
 #include "touch.h"
 #include "watchdog.h"
@@ -58,3 +60,5 @@ void board_resume(void) {
   REG(0x600b102cu) = 0; // Release this board's per-pin LP_AON holds.
   i2c_init();
 }
+
+bool board_key_pressed(void) { return !gpio_get(BUTTON_KEY); }

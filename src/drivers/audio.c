@@ -31,3 +31,12 @@ bool audio_disable(void) {
   }
   return codec_off && adc_off;
 }
+
+void audio_diagnostics(uint32_t values[AUDIO_DIAGNOSTIC_COUNT]) {
+  const uint8_t addresses[] = {0x18, 0x18, 0x40, 0x40};
+  const uint8_t regs[] = {0x0d, 0x01, 0x06, 0x01};
+  for (unsigned i = 0; i < AUDIO_DIAGNOSTIC_COUNT; i++) {
+    uint8_t value;
+    values[i] = i2c_read(addresses[i], regs[i], &value, 1) ? value : UINT32_MAX;
+  }
+}

@@ -1,5 +1,7 @@
-#include "board.h"
+#include "pins.h"
 #include "hal.h"
+#include "timer.h"
+#include "registers.h"
 #include "watchdog.h"
 void timer_init(void) {
   REG(PCR_SYSTIMER_CONFIG) = 1;

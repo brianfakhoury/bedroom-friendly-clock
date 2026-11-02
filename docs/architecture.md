@@ -19,8 +19,10 @@ Cold boot enters standby unless KEY is held. Holding KEY at startup keeps the di
 3. [`app/animation.c`](../src/app/animation.c), [`app/orientation.c`](../src/app/orientation.c), and [`app/local_time.c`](../src/app/local_time.c) contain deterministic calculations. Pacific daylight-saving policy and service date formatting are outside the RTC driver.
 4. [`app/digits.c`](../src/app/digits.c) owns the seven-segment shapes and placement. Orientation and ink are explicit arguments. Erasing uses the same geometry with black ink, so rotated images cannot leave old segments behind.
 5. [`drivers/display.c`](../src/drivers/display.c) knows rectangles, brightness, display on/off, and panel initialization. It does not know what time is or how digits look. Other drivers own the RTC, touch, accelerometer, and PMIC protocols.
-6. [`hal/time.c`](../src/hal/time.c) owns the SYSTIMER and pending-event wait. [`board/board.h`](../src/board/board.h) names the board wiring; [`board/board.c`](../src/board/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
+6. [`hal/time.c`](../src/hal/time.c) owns the SYSTIMER and pending-event wait. [`board/pins.h`](../src/board/pins.h) names the board wiring; [`board/board.c`](../src/board/board.c) composes device startup. GPIO, I²C, and USB mechanisms have separate small source files.
 7. [`app/serial_commands.c`](../src/app/serial_commands.c) parses maintenance commands. It requests activation through its return value, so USB SHOW, touch, and buttons use the same application activation path. DIAG reports status without changing hardware.
+
+Presentation logic uses device APIs and the narrow `hal/timer.h` interface. Board code owns the KEY pin and active-low interpretation. Device drivers own diagnostic register selections and return ordered snapshots; serial commands format those values without issuing raw I²C transactions. Startup and the application event loop still use HAL services for USB, event waiting, and hardware lifecycle coordination.
 
 A display hold can only be enabled while the display is visible. When the display is off, the event loop clears any hold and enters deep sleep.
 

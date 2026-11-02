@@ -1,5 +1,6 @@
-#include "board.h"
+#include "pins.h"
 #include "hal.h"
+#include "registers.h"
 // Open-drain software I2C, including bounded clock stretching. Only used on
 // demand.
 static void sda(bool high) {

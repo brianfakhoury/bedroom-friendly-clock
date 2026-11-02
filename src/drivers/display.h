@@ -1,5 +1,6 @@
 #pragma once
-#include "hal.h"
+#include <stdbool.h>
+#include <stdint.h>
 bool display_init(void);
 void display_rect(unsigned x, unsigned y, unsigned w, unsigned h,
                   uint16_t color);
